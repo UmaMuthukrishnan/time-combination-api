@@ -1,6 +1,7 @@
 package com.backend.timer;
 
 import com.backend.exception.InvalidTimeException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,10 +11,12 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Test class for TimeService
+ *
  * @author Uma Muthukrishnan
  * @version 1.0
  */
 public class TimerServiceTest {
+
 
     TimerService timerService;
 
@@ -32,6 +35,13 @@ public class TimerServiceTest {
         assertThat(timerService.count(startTime, endTime), is(2));
     }
 
+    @Test
+    public void testForPossibleCount_With_validTimesRange() {
+        var startTime = "00:01:00";
+        var endTime = "23:59:59";
+        assertThat(timerService.count(startTime, endTime), is(482));
+    }
+
     /**
      * Test to get possible count of two digits when startTime and endTime are same
      * if the combination of 2 digit occurs in inputString ,then it will also be counted
@@ -40,12 +50,12 @@ public class TimerServiceTest {
     public void testForPossibleCount_With_same_startAndEndTimes() {
         var startTime = "16:16:16";
         var endTime = "16:16:16";
-       assertThat(timerService.count(startTime, endTime), is(1));
+        assertThat(timerService.count(startTime, endTime), is(0));
     }
 
     /**
      * Test to get possible count of two digits when startTime contains 2 digits
-     * if the combination of 2 digit occurs in inputString ,then it will also be counted
+     * if the combination of 2 digit occurs in startTime ,then it will also be counted
      */
     @Test
     public void testForPossibleCount_With_TwoDigits_in_startTime() {
@@ -56,17 +66,18 @@ public class TimerServiceTest {
 
     /**
      * Test to get possible count of two digits when endTime contains 2 digits
-     * if the combination of 2 digit occurs in inputString ,then it will also be counted
+     * if the combination of 2 digit occurs in endTime ,then it will not be counted
      */
     @Test
     public void testForPossibleCount_With_TwoDigits_in_endTime() {
         var startTime = "17:17:16";
         var endTime = "17:17:17";
-        assertThat(timerService.count(startTime, endTime), is(1));
+        assertThat(timerService.count(startTime, endTime), is(0));
     }
 
     /**
      * Test to get possible count of two digits when startTime is greater than endTime
+     *
      * @throws InvalidTimeException when startTime > endTime
      */
     @Test
@@ -80,6 +91,7 @@ public class TimerServiceTest {
 
     /**
      * Test to get possible count of two digits when endTime is less than startTime
+     *
      * @throws InvalidTimeException when startTime > endTime
      */
     @Test
@@ -92,6 +104,14 @@ public class TimerServiceTest {
     }
 
 
+    /**
+     * Test to get no of digits in a given string
+     */
+    @Test
+    public void testToGetNoOfDigitCount() {
+        var numericString = "1234110789";
+        assertThat((int) numericString.chars().distinct().count(), is(8));
+    }
 
 
 }

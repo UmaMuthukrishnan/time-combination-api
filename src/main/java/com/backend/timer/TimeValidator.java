@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Validator for Input Times provided by the user.
+ *
  * @author Uma Muthukrishnan
  * @version 1.0
  */
@@ -24,7 +25,7 @@ public class TimeValidator {
         if (inputTime == null || inputTime.isBlank()) {
             return false;
         } else {
-            DateTimeFormatter formatter = TimeUtil.getDateTimeFormatter();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TimeUtil.TIME_PATTERN);
             try {
                 formatter.parse(inputTime);
             } catch (Exception e) {

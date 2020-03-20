@@ -1,11 +1,11 @@
 package com.backend.utils;
 
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
 
 /**
  * Util class for TimerService .
+ *
  * @author Uma Muthukrishnan
  * @version 1.0
  */
@@ -14,27 +14,22 @@ public class TimeUtil {
     public static final String TIME_PATTERN = "HH:mm:ss";
 
     /**
-     * Method to get required date formatter
+     * Method to get LocalTime format from a given string
      *
-     * @return dateFormatter object with the pattern 'HH:mm:ss'
+     * @param inputTime inputTime as String
+     * @return LocalTime as datatype
      */
-    public static DateTimeFormatter getDateTimeFormatter() {
-        return new DateTimeFormatterBuilder()
-                .appendPattern(TIME_PATTERN)
-                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .toFormatter();
+    public static LocalTime getLocalTimeFromString(String inputTime) {
+        return LocalTime.parse(inputTime.strip(), DateTimeFormatter.ofPattern(TIME_PATTERN));
     }
 
     /**
-     * Method to get total number of digits in a given string
+     * Method to get String format from a given LocalTime
      *
-     * @param checkString accepts a string with combination of numbers
-     * @return number of digits in a string as integer datatype
+     * @param localTime inputTime as LocalTime
+     * @return String as datatype
      */
-    public static int getNoOfDigitCount(CharSequence checkString) {
-        return (int) checkString.chars().distinct().count();
-
+    public static String getStringFromLocalTime(LocalTime localTime) {
+        return localTime.format(DateTimeFormatter.ofPattern(TIME_PATTERN));
     }
 }

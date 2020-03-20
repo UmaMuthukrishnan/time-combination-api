@@ -11,6 +11,7 @@ import static org.junit.Assert.assertFalse;
 
 /**
  * Test class for TimeValidator
+ *
  * @author Uma Muthukrishnan
  * @version 1.0
  */
